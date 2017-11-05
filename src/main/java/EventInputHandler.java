@@ -6,9 +6,11 @@ public class EventInputHandler {
     private static String sCurrentLine = null;
     private static BufferedReader br = null;
     private static FileReader fr = null;
+    private TCPClient tcpClient;
 
     public EventInputHandler(String FILENAME) {
         initFileRead(FILENAME);
+        tcpClient = new TCPClient("localhost", 1234);
     }
 
 
@@ -56,7 +58,7 @@ public class EventInputHandler {
 
         for (int i = 0; i < noOfEvents; i++) {
             long eventTimestamp = System.currentTimeMillis();
-            new TCPClient("localhost", 1234).sendMsg(getNextIPAddress() + "," + eventTimestamp);
+            tcpClient.sendMsg(getNextIPAddress() + "," + eventTimestamp);
 
             if (i % sleepRate == 0) {
                 try {

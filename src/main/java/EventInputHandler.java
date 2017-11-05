@@ -8,9 +8,14 @@ public class EventInputHandler {
     private static FileReader fr = null;
     private TCPClient tcpClient;
 
+    private PerformanceTester performanceTester;
+
+    private final int RECORD_WINDOW = 1000;
+
     public EventInputHandler(String FILENAME) {
         initFileRead(FILENAME);
         tcpClient = new TCPClient("localhost", 1234);
+        performanceTester = new PerformanceTester("Client", RECORD_WINDOW);
     }
 
 
@@ -59,7 +64,6 @@ public class EventInputHandler {
         for (int i = 0; i < noOfEvents; i++) {
             long eventTimestamp = System.currentTimeMillis();
             tcpClient.sendMsg(getNextIPAddress() + "," + eventTimestamp);
-
             if (i % sleepRate == 0) {
                 try {
                     Thread.sleep(1);
@@ -67,6 +71,7 @@ public class EventInputHandler {
                     e.printStackTrace();
                 }
             }
+            performanceTester.addEvent(eventTimestamp);
         }
     }
 

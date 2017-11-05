@@ -4,7 +4,7 @@ public class Main {
                 ClassLoader.getSystemResource("log20161231/log20161231.csv").getPath());
 
         try {
-            eventInputHandler.sendEvents(100000,2000);
+            eventInputHandler.sendEvents(100000,10000);
         } catch (ParameterException e) {
             e.printStackTrace();
         }

@@ -10,9 +10,7 @@ public class EventInputHandler {
 
     private PerformanceTester performanceTester;
 
-    private final int RECORD_WINDOW = 1000;
-
-    public EventInputHandler(String FILENAME) {
+    public EventInputHandler(String FILENAME,int RECORD_WINDOW) {
         initFileRead(FILENAME);
         tcpClient = new TCPClient("localhost", 1234);
         performanceTester = new PerformanceTester("Client", RECORD_WINDOW);
